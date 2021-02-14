@@ -23,7 +23,7 @@ class DijkstraTest {
     }
 
     @Test
-    fun mustToCalculateShortestRouteWhenAllVertexAreDirect() {
+    fun mustToCalculateShortestRoute() {
         val a = graph.addNode("A")
         val b = graph.addNode("B")
         val c = graph.addNode("C")
@@ -31,19 +31,27 @@ class DijkstraTest {
         val e = graph.addNode("E")
         val f = graph.addNode("F")
         val g = graph.addNode("G")
+        val h = graph.addNode("H")
+        val i = graph.addNode("I")
 
         graph.apply {
-            addVertex(a, b, 3.0)
-            addVertex(a, c, 1.0)
-            addVertex(a, d, 7.0)
-            addVertex(b, d, 1.0)
-            addVertex(c, d, 3.0)
-            addVertex(d, e, 3.0)
-            addVertex(d, f, 5.0)
-            addVertex(d, g, 7.0)
-            addVertex(e, g, 3.0)
-            addVertex(f, g, 3.0)
+            addVertex(a, b, 1.0)
+            addVertex(a, c, 10.0)
+            addVertex(a, d, 5.0)
+            addVertex(b, c, 10.0)
+            addVertex(b, e, 8.0)
+            addVertex(b, f, 4.0)
+            addVertex(c, d, 1.0)
+            addVertex(c, f, 4.0)
+            addVertex(d, g, 1.0)
+            addVertex(e, f, 10.0)
+            addVertex(e, h, 20.0)
+            addVertex(f, h, 5.0)
+            addVertex(f, i, 10.0)
+            addVertex(f, g, 1.0)
+            addVertex(g, i, 30.0)
+            addVertex(h, i, 6.0)
         }
-        assertEquals(Route(a, g, listOf(a, c, d, e, g), 10.0), dijkstra.shortestRoute(a, g))
+        assertEquals(Route(a, i, listOf(a, b, f, i), 15.0), dijkstra.shortestRoute(a, i))
     }
 }

@@ -15,7 +15,7 @@ class Dijkstra(private val graph: Graph) {
                 openLower.close()
                 val vertices = graph.findVertices(openLower)
                 vertices.forEach { vertexOfOpenLower ->
-                    val adjacentNode = vertexOfOpenLower.n2
+                    val adjacentNode = vertexOfOpenLower.end
                     adjacentNode.tryChangeDistanceStart(openLower, vertexOfOpenLower)
                 }
             }

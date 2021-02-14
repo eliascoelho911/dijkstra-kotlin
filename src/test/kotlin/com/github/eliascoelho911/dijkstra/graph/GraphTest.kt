@@ -1,5 +1,7 @@
 package com.github.eliascoelho911.dijkstra.graph
 
+import com.github.eliascoelho911.dijkstra.exception.NodeAlreadyAddedInTheGraph
+import com.github.eliascoelho911.dijkstra.exception.NodesAlreadyConnectedException
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -24,6 +26,12 @@ class GraphTest {
         assertEquals(setOf(Vertex(n1, n2, 3.0), Vertex(n1, n3, 3.0)), graph.findVertices(n1))
     }
 
+    @Test(expected = NodeAlreadyAddedInTheGraph::class)
+    fun mustToThrowExceptionWhenNodeAlreadyAddedInTheGraph() {
+        graph.addNode("A")
+        graph.addNode("A")
+    }
+
     @Test
     fun mustToReturnTrueWhenHaveOpenNode() {
         graph.addNode("a")
@@ -34,5 +42,13 @@ class GraphTest {
     fun mustToReturnFalseWhenDontHaveOpenNode() {
         graph.addNode("a").apply { close() }
         assertFalse(graph.hasOpenNode())
+    }
+
+    @Test(expected = NodesAlreadyConnectedException::class)
+    fun mustThrowExceptionWhenTryToConnectNodesAlreadyConnected() {
+        val a = graph.addNode("A")
+        val b = graph.addNode("B")
+        graph.addVertex(a, b, 1.0)
+        graph.addVertex(a, b, 2.0)
     }
 }
